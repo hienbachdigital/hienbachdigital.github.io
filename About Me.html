@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Hien Bach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #333;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FDB834;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #333;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 150px 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-underline {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FDB834, #f0a820);
+            margin: 0 auto 3rem;
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            align-items: stretch;
+            padding-bottom: 2rem;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .about-text p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .about-text a:not(.btn) {
+            color: #FDB834;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .about-text a:not(.btn):hover {
+            color: #f0a820;
+            border-bottom-color: #f0a820;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #333;
+            border: 2px solid #333;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover .btn-icon {
+            transform: translateX(3px);
+        }
+
+        /* Word Cloud */
+        .word-cloud-container {
+            padding: 3rem;
+            background: #fafafa;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            min-height: 100%;
+            border: 1px solid #f0f0f0;
+        }
+
+        .word-cloud-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: #FDB834;
+            opacity: 0.05;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .word-cloud {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.15rem 0.5rem;
+            padding: 1.5rem;
+            line-height: 1.1;
+            width: 100%;
+        }
+
+        .word {
+            display: inline-block;
+            cursor: default;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .word:hover {
+            transform: scale(1.1);
+        }
+
+        /* Size variations */
+        .size-1 { font-size: 1.8rem; font-weight: 700; }
+        .size-2 { font-size: 1.5rem; font-weight: 700; }
+        .size-3 { font-size: 1.3rem; font-weight: 600; }
+        .size-4 { font-size: 1.1rem; font-weight: 600; }
+        .size-5 { font-size: 0.95rem; font-weight: 500; }
+        .size-6 { font-size: 0.85rem; font-weight: 500; }
+        .size-7 { font-size: 0.75rem; font-weight: 400; }
+        .size-8 { font-size: 0.7rem; font-weight: 400; }
+
+        /* Color scheme */
+        .color-1 { color: #333; }
+        .color-2 { color: #FDB834; }
+        .color-3 { color: #666; }
+        .color-4 { color: #999; }
+        .color-5 { color: #1a1a1a; }
+
+        /* Playfair for emphasis words */
+        .emphasis {
+            font-family: 'Playfair Display', serif;
+        }
+
+        footer {
+            padding: 1.5rem 5%;
+            text-align: center;
+            background: #fafafa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 120px 5% 60px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .word {
+                font-size: 0.9em !important;
+            }
+
+            .btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="index.html" class="logo">Hien Bach</a>
+        <ul class="nav-links">
+            <li><a href="#" class="active">About me</a></li>
+            <li><a href="experience.html">Portfolio</a></li>
+            <li><a href="cv.html">Resume</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h2 class="section-title">About Me</h2>
+        <div class="section-underline"></div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <p>From Vietnam to London for my Master’s, then meeting a French man who made me stay, my life has been a journey across cultures. That blend of experiences makes diversity a part of who I am.</p>
+                <p>My career has always been rooted in higher education and digital marketing. I began in a small edtech start-up, gaining hands-on experience and a deep understanding of digital systems. As the company grew into a larger organisation, my role evolved too, from being resourceful and technical to leading teams and thinking strategically.</p>
+                <p>I love helping ideas and people grow. Outside of work, you'll often find me reading, walking in nature, or enjoying good conversations (even though I'm not much of an extrovert).</p>
+                <p>This word cloud is <a href="https://www.linkedin.com/pulse/how-do-people-describe-me-5-words-activity-hien-bach/" target="_blank" rel="noopener">how my colleagues describe me</a>. I've also shared my <a href="https://partners.idp.com/articles/work-life/Hien-Bach-celebrating-a-decade-at-IDP-Connect" target="_blank" rel="noopener">learn, grow and inspire journey</a> from an international student to a leadership role, along with my thoughts on <a href="https://careers.idp.com/employee-stories/Hien-Bach" target="_blank" rel="noopener">diversity and inclusion</a>.</p>
+                <p>If what I've shared resonates with you, I'd love to connect.</p>
+                <a href="https://www.linkedin.com/in/hien-bach-digital/" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <span>LinkedIn</span>
+                    <span class="btn-icon">↗</span>
+                </a>
+            </div>
+
+            <div class="word-cloud-container">
+                <div class="word-cloud" id="wordCloud"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="copyright">Copyright Hien Bach 2025</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Word Cloud Data
+        const words = [
+            { text: 'analytical', size: 1, color: 2, emphasis: true },
+            { text: 'hard-working', size: 3, color: 4, emphasis: false },
+            { text: 'inspiring', size: 2, color: 2, emphasis: false },
+            { text: 'dedicated', size: 2, color: 2, emphasis: false },
+            { text: 'supportive', size: 2, color: 1, emphasis: false },
+            { text: 'caring', size: 2, color: 1, emphasis: false },
+            { text: 'empathetic', size: 2, color: 1, emphasis: false },
+            { text: 'reliable', size: 2, color: 2, emphasis: false },
+            { text: 'ambitious', size: 2, color: 1, emphasis: false },
+            { text: 'inquisitive', size: 3, color: 2, emphasis: false },
+            { text: 'disciplined', size: 3, color: 1, emphasis: false },
+            { text: 'determined', size: 3, color: 5, emphasis: false },
+            { text: 'understanding', size: 3, color: 5, emphasis: false },
+            { text: 'methodical', size: 3, color: 1, emphasis: false },
+            { text: 'calm', size: 3, color: 1, emphasis: false },
+            { text: 'initiator', size: 3, color: 1, emphasis: false },
+            { text: 'kind', size: 3, color: 2, emphasis: false },
+            { text: 'strong', size: 3, color: 1, emphasis: false },
+            { text: 'conscientious', size: 4, color: 5, emphasis: false },
+            { text: 'friendly', size: 4, color: 5, emphasis: false },
+            { text: 'curious', size: 4, color: 2, emphasis: false },
+            { text: 'organised', size: 4, color: 1, emphasis: false },
+            { text: 'passionate', size: 4, color: 2, emphasis: false },
+            { text: 'good-listener', size: 4, color: 1, emphasis: false },
+            { text: 'resilient', size: 5, color: 2, emphasis: false },
+            { text: 'compassionate', size: 1, color: 2, emphasis: false },
+            { text: 'self-motivated', size: 5, color: 3, emphasis: false },
+            { text: 'detail-oriented', size: 5, color: 3, emphasis: false },
+            { text: 'trustworthy', size: 5, color: 2, emphasis: false },
+            { text: 'cooperative', size: 5, color: 3, emphasis: false },
+            { text: 'knowledgeable', size: 5, color: 3, emphasis: false },
+            { text: 'proactive', size: 6, color: 3, emphasis: false },
+            { text: 'multi-tasking', size: 6, color: 2, emphasis: false },
+            { text: 'creative', size: 6, color: 2, emphasis: false },
+            { text: 'positive', size: 6, color: 3, emphasis: false },
+            { text: 'committed', size: 6, color: 3, emphasis: false },
+            { text: 'enthusiastic', size: 6, color: 3, emphasis: false },
+            { text: 'self-learner', size: 7, color: 3, emphasis: false },
+            { text: 'generous', size: 7, color: 3, emphasis: false },
+            { text: 'patient', size: 7, color: 2, emphasis: false },
+            { text: 'clever', size: 7, color: 2, emphasis: false },
+            { text: 'loyal', size: 7, color: 3, emphasis: false },
+            { text: 'brave', size: 7, color: 3, emphasis: false },
+            { text: 'warm', size: 7, color: 3, emphasis: false },
+            { text: 'motherly', size: 7, color: 4, emphasis: false },
+            { text: 'ethical', size: 7, color: 4, emphasis: false },
+            { text: 'detailed', size: 7, color: 4, emphasis: false },
+            { text: 'polite', size: 7, color: 4, emphasis: false },
+            { text: 'nurturing', size: 7, color: 4, emphasis: false },
+            { text: 'smart', size: 7, color: 4, emphasis: false },
+            { text: 'fair', size: 7, color: 4, emphasis: false },
+            { text: 'independent', size: 7, color: 4, emphasis: false },
+            { text: 'leader', size: 7, color: 4, emphasis: false },
+            { text: 'gds-pro', size: 8, color: 4, emphasis: false },
+            { text: 'rebel', size: 8, color: 4, emphasis: false },
+            { text: 'open-minded', size: 8, color: 2, emphasis: false },
+            { text: 'smiley', size: 8, color: 4, emphasis: false },
+            { text: 'approachable', size: 8, color: 4, emphasis: false },
+            { text: 'professional', size: 8, color: 4, emphasis: false },
+            { text: 'knowledge-seeker', size: 8, color: 4, emphasis: false },
+            { text: 'purposeful', size: 8, color: 4, emphasis: false },
+            { text: 'inspirational', size: 1, color: 2, emphasis: false },
+            { text: 'appreciative', size: 8, color: 4, emphasis: false },
+            { text: 'techie', size: 8, color: 2, emphasis: false },
+            { text: 'thoughtful', size: 8, color: 4, emphasis: false },
+            { text: 'heartfelt', size: 8, color: 4, emphasis: false },
+            { text: 'likeable', size: 8, color: 4, emphasis: false },
+            { text: 'versatile', size: 8, color: 4, emphasis: false },
+            { text: 'strategic', size: 8, color: 4, emphasis: false },
+            { text: 'reserved', size: 8, color: 4, emphasis: false },
+            { text: 'direct', size: 8, color: 4, emphasis: false },
+            { text: 'efficient', size: 8, color: 4, emphasis: false },
+            { text: 'meticulous', size: 8, color: 4, emphasis: false },
+            { text: 'consistent', size: 8, color: 4, emphasis: false },
+            { text: 'great-manager', size: 8, color: 4, emphasis: false },
+            { text: 'competent', size: 8, color: 4, emphasis: false },
+            { text: 'strict', size: 8, color: 4, emphasis: false },
+            { text: 'factual', size: 8, color: 4, emphasis: false }
+        ];
+
+        // Shuffle words for random placement
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const shuffledWords = shuffleArray(words);
+        const wordCloud = document.getElementById('wordCloud');
+
+        shuffledWords.forEach((word, index) => {
+            const span = document.createElement('span');
+            span.textContent = word.text;
+            span.className = `word size-${word.size} color-${word.color}`;
+            if (word.emphasis) {
+                span.classList.add('emphasis');
+            }
+            span.style.animationDelay = `${index * 0.03}s`;
+            wordCloud.appendChild(span);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

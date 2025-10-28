@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Hien Bach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #333;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FDB834;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #333;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 150px 5% 80px;
+        }
+
+        /* Portfolio Header */
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .section-underline {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FDB834, #f0a820);
+            margin: 0 auto 2rem;
+            border-radius: 2px;
+        }
+
+        .page-intro {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Download Button */
+        .download-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #FDB834 0%, #f0a820 100%);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 20px rgba(253, 184, 52, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(253, 184, 52, 0.5);
+        }
+
+        .btn-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover .btn-icon {
+            transform: translateX(3px);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            border-bottom: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            border-bottom-color: #FDB834;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a1a1a;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            color: #FDB834;
+            transition: transform 0.3s ease;
+        }
+
+        .section-header.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0;
+        }
+
+        .section-content.active {
+            max-height: 5000px;
+            padding: 2rem 0 0.5rem;
+        }
+
+        /* Experience Item */
+        .experience-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-details {
+            width: 100%;
+        }
+
+        .experience-period {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .experience-title:first-child {
+            margin-top: 0;
+        }
+
+        .experience-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Hyperlink styles matching About Me page */
+        .experience-description a {
+            color: #FDB834;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .experience-description a:hover {
+            color: #f0a820;
+            border-bottom-color: #f0a820;
+        }
+
+        .experience-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-list li {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-list li::before {
+            content: '•';
+            color: #FDB834;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .tag {
+            background: #fafafa;
+            color: #FDB834;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            padding: 1.5rem 5%;
+            text-align: center;
+            background: #fafafa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+			
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 120px 5% 60px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .experience-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .download-btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="index.html" class="logo">Hien Bach</a>
+        <ul class="nav-links">
+            <li><a href="index.html">About me</a></li>
+            <li><a href="#" class="active">Portfolio</a></li>
+            <li><a href="cv.html">Resume</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Header -->
+        <div class="portfolio-header">
+            <h1 class="page-title">Professional Experience</h1>
+            <div class="section-underline"></div>
+            <p class="page-intro">This portfolio showcases a proven track record in driving digital transformation and measurable growth for global education brands. My expertise lies in translating complex market data and audience insights into high-impact, integrated marketing strategies that deliver sustained commercial success and position organisations for future innovation. I specialise in leading cross-functional teams to launch and scale cutting-edge digital products and campaigns across diverse international markets.</p>
+        </div>
+        
+        <!-- Download Button -->
+        <div class="download-section">
+            <a href="#" class="download-btn">
+                <span>Download Portfolio</span>
+                <span class="btn-icon">→</span>
+            </a>
+        </div>
+
+        <!-- Strategic Impact Section -->
+        <div class="section">
+            <div class="section-header active" onclick="toggleSection(this)">
+                <h2 class="section-title">Strategic Impact & Commercial Growth</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content active">
+                <div class="experience-item">
+                       <div class="experience-details">
+						<p class="experience-description">My leadership focuses on establishing a data-driven marketing ecosystem that directly supports core business objectives, specifically year-on-year growth in traffic, leads, and student enrolments.</p>
+                        <h3 class="experience-title">Global Campaign Strategy & Execution</h3>
+                        <ul class="experience-list">
+                            <li>Oversaw a portfolio of 10 international websites in 9 languages, collectively reaching over 30 million visitors annually. Directed integrated campaigns across SEO, Paid Search, Paid Social, Digital PR, Content Marketing, and Marketing Automation, resulting in consistent YOY growth in online registrations and qualified leads.</li>
+                            <li>Architected and deployed comprehensive, multi-channel marketing strategies for high-profile destination marketing clients, including Study New Zealand, Study Scotland, Study Ireland, and Study Nova Scotia. These strategies were built on rigorous internal and external data analysis for precise audience targeting and maximised campaign ROI.</li>
+                            <li>Brand Repositioning: Advised senior leadership on the repositioning of UK digital brands (including PGS, Complete University Guide, WhatUni web and app) and the relaunch of IDP Hotcourses brand, ensuring internal alignment on a unified brand identity and messaging across all digital and media touchpoints.</li>
+                        </ul>
+                        <h3 class="experience-title">Data & Analytics Infrastructure</h3>
+                        <ul class="experience-list">
+                            <li>Advised senior leadership on the implementation of a robust data analytics function, including the data warehousing solution. This initiative was critical for unifying data across all digital touchpoints, enabling sophisticated lead scoring, and providing a holistic view of the student lifecycle from research to application.</li>
+                            <li>Leveraged unparalleled access to global demand data and proprietary surveys (e.g., Crossroads, New Horizons, Emerging Futures) to inform strategic marketing campaign planning.</li>
+                        </ul>
+                       <div class="tags">
+                            <span class="tag">Global Strategy</span>
+                            <span class="tag">Student Recruitment</span>
+                            <span class="tag">Brand Strategy</span>
+                            <span class="tag">Budget Management</span>
+                            <span class="tag">ROI Optimisation</span>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Marketing Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2 class="section-title">Product Marketing & Innovation</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="experience-item">
+                    <div class="experience-details">
+						<p class="experience-description">My core strength is the ability to bridge marketing strategy with product development, leading the Go-To-Market (GTM) strategy for transformative digital services that enhance user experience and drive institutional value.</p>
+                        <h3 class="experience-title">FastLane OIP (Offer in Principle)</h3>
+                        <p class="experience-description"><a href="https://careers.idp.com/news/fastlane-service" target="_blank" rel="noopener">FastLane OIP</a> is IDP's innovative digital service, matching users' qualification input with universities' eligibility requirements. It enables students to receive an "offer in principle" from partner universities within minutes. FastLane delivers a faster, more transparent, and confidence-building experience for students while helping institutions connect with qualified applicants more efficiently.</p>
+                        <p class="experience-description">As Marketing Director, I led product marketing and positioning on Hotcourses websites. Defined the narrative for this innovative service that provides students with instant, confidence-building eligibility checks.</p>
+                        <p class="experience-description">Strategic outcomes: Accelerated the application process, enhancing student experience and increasing the volume of qualified applicants for partner universities.</p> 
+                        <h3 class="experience-title">FastLane Propose</h3>
+                        <p class="experience-description">FastLane Propose is another IDP's innovative digital offering, leveraging global audience, student demographic and subject data demand, and AI to help institutions deliver personalised proposals to influence high-quality students to apply using their unique values such as scholarships, accommodation discounts, admission fee wavers, etc.</p>
+                        <p class="experience-description">As Marketing Director, I provided critical product feedback and strategic guidance on expanding the top-of-funnel student pool. Designed data-rich traffic acquisition and retargeting campaigns for high-quality audience segmentation.</p>
+                        <p class="experience-description">Strategic outcomes: Supported the delivery of personalised, AI-driven proposals to influence high-quality student applications, leveraging global demographic and subject demand data.</p> 
+                        <h3 class="experience-title">Student Community</h3>
+                        <p class="experience-description">Student Community is a peer-to-peer engagement platform embedded across IDP's digital ecosystem, enabling prospective students to connect with current student ambassadors through live chat, content feeds, and FAQs. It helps students have real insights into life and learning abroad while offering institutions scalable visibility and content.</p>
+                        <p class="experience-description">As Marketing Director, I contributed to client pitch decks, developed the comprehensive SEO-driven content strategy, and led the GTM execution. Collaborated with Product/Development on ideation, design, and integration.</p>
+                        <p class="experience-description">Strategic outcomes: Provided prospective students with authentic insights while offering institutions valuable visibility and content.</p> 
+                        <h3 class="experience-title">Navi AI Chatbot</h3>
+                        <p class="experience-description"><a href="https://partners.idp.com/articles/student-insights/idp-introduces-navi-our-ai-powered-student-assistant-uk" target="_blank" rel="noopener">Navi</a> is IDP's global AI chatbot designed to enhance student engagement, lead qualification, and operational efficiency across digital and omnichannel platforms. Integrated into WhatsApp, websites, and social media, Navi supports students through key decision points—qualifying leads, booking appointments, collecting FastLane profiles, and re-engaging drop-offs.</p>
+                        <p class="experience-description">As Marketing Director, I advised on content strategy, contributed to user testing, and provided data-backed feedback. The chatbot is integrated across WhatsApp and web.</p>
+                        <p class="experience-description">Strategic outcomes: Enhanced student engagement, automated lead qualification, appointment booking, and re-engagement of drop-offs, significantly improving operational efficiency.</p> 
+                        <h3 class="experience-title">Holistic Digital Integration</h3>
+                        <p class="experience-description">My expertise is defined by a highly technical, holistic understanding of the digital stack, combining Product, Content, SEO, and Performance Marketing. This perspective is applied to ensure that all new and significant page developments are optimised for SEO and marketing elements from the outset, beginning with the review and approval of UX briefs.</p>
+                        <div class="tags">
+                            <span class="tag">Product Marketing</span>
+                            <span class="tag">AI Solutions</span>
+                            <span class="tag">Digital Marketing Stack</span>
+                            <span class="tag">Digital Media Strategy</span>  
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Leadership & Team Development Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2 class="section-title">Executive Leadership & Team Development</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="experience-item">
+                       <div class="experience-details">
+						<p class="experience-description">Leading and scaling high-performing teams is central to my impact. I focus on clear goal-setting, mentorship, and fostering a culture of continuous improvement and data-driven decision-making.</p>
+                        <ul class="experience-list">
+                            <li><strong>Global Team Management:</strong> Successfully managed a diverse, 20-person digital marketing team spanning the UK, EU, and India. Responsibilities included full-cycle hiring, nurturing, and performance monitoring to consistently meet and exceed KPIs.</li>
+                            <li><strong>Mentorship & Motivation:</strong> Provided clear, inspiring leadership through effective motivation and goal-setting, resulting in a highly engaged and productive global workforce.</li>
+                            <li><strong>Recognition:</strong> Recognised for leadership excellence with the Leadership Impact Award (2024) and the Maher El Bakry Emerging Leaders Award (2022), underscoring a commitment to developing future marketing talent.</li>
+							<li><strong>Capability Scaling:</strong> Guided the team in building AI-automated frameworks to scale client promotion and marketing planning, significantly improving efficiency and consistency across cross-channel execution.</li>
+                        </ul>
+                       <div class="tags">
+                            <span class="tag">Team Leadership</span>
+                            <span class="tag">Coaching & Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stakeholder & Client Engagement -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2 class="section-title">Stakeholder & Client Engagement</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="experience-item">
+                       <div class="experience-details">
+						<p class="experience-description">Success at the executive level requires seamless collaboration across internal functions and effective negotiation with external partners.</p>
+                        <h3 class="experience-title">Internal Alignment & Cross-Functional Collaboration</h3>
+                        <ul class="experience-list">
+                            <li><strong>Product Development Liaison:</strong> Ensured effective alignment with Product, UX/Design, and Development teams, contributing critical marketing insights to product ideation and feature development.</li>
+                            <li><strong>Commercial Support:</strong> Liaised with Client Partnerships and Client Success teams to provide marketing support for sales proposals. My role involved presenting digital marketing strategies, explaining complex insights, and evidencing campaign outcomes to secure and protect multi-year client contracts.</li>
+                        </ul>
+                        <h3 class="experience-title">External Partnerships & Vendor Negotiation</h3>
+                        <ul class="experience-list">
+                            <li><strong>Strategic Vendor Management:</strong> Successfully negotiated with key technology vendors, such as Supermetrics, to secure advanced analytics solutions that enhanced data capabilities.</li>
+                            <li><strong>Expanded Reach:</strong> Partnered with affiliates, influencers, and event organisers (e.g., BMI Media) to strategically expand brand reach and market presence.</li>
+                            <li><strong>Team Upskilling:</strong> Engaged with professional training providers (e.g., Jelly Fish) to ensure the team's skills remained at the forefront of digital marketing best practices.</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Stakeholder Engagement</span>
+                            <span class="tag">Client Relationship Management</span>
+                            <span class="tag">Cross-Functional Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Expertise & Technical Acumen Section -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2 class="section-title">Core Expertise & Technical Acumen</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="experience-item">
+                    <div class="experience-details">
+						<p class="experience-description">My foundation is built on a deep, hands-on understanding of the entire digital marketing stack, cultivated over 14 years, and now applied at a strategic leadership level.</p>
+                        <ul class="experience-list">
+                            <li><strong>Digital Marketing Stack:</strong> Holistic mastery of SEO, Content, Social Media, Marketing Automation, Performance Marketing, PR, and Partnerships. Early career experience in a start-up environment provided hands-on execution, which now informs strategic oversight.</li>
+                            <li><strong>Data & Analytics:</strong> Proficient in modern analytics platforms (GA4, Looker Studio, Tableau) and SEO tools (Ahrefs, Google Search Console). Deep understanding of how to translate raw data into actionable business insights and strategic direction.</li>
+                            <li><strong>Technology & AI Integration:</strong> Active embrace of AI tools (Co-pilot, Chat GPT, Claude, Manus) for productivity, ideation, and scaling operations. This forward-looking approach ensures the marketing function remains innovative and highly efficient.</li>
+                            <li><strong>Higher Education Landscape:</strong> 14 years of dedicated experience in the Higher Education sector, providing a nuanced understanding of global learner recruitment trends, and programme development considerations.</li>
+                        </ul>
+                       <h3 class="experience-title">Technical Toolkit</h3>
+                        <ul class="experience-list">
+                            <li><strong>Analytic:</strong> GA4, Looker Studio, Tableau</li>
+                            <li><strong>SEO:</strong> Ahrefs, Google Search Console</li>
+                            <li><strong>Advertising:</strong> Google Ads, Meta Business Manager</li>
+                            <li><strong>Project Management:</strong> MS Suite, Co-pilot, Asana, Jira, Confluence, Miro</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Multi-Channel Campaign Management</span>
+                            <span class="tag">AI Solutions</span>
+                            <span class="tag">Higher Education Marketing</span>
+                            <span class="tag">Data-driven Marketing</span>
+                        </div>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Vision -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2 class="section-title">Future Vision</h2>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="experience-item">
+                    <div class="experience-details">
+						<p class="experience-description">My focus moving forward is on leveraging the convergence of AI, data unification, and hyper-personalised digital experiences to unlock the next phase of commercial growth. I aim to continue building marketing organisations that are not just execution-focused, but are strategic growth engines capable of advising on product roadmaps and driving enterprise-level digital transformation.</p>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="copyright">Copyright Hien Bach 2025</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            
+            // Toggle current section only
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
