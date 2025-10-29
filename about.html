@@ -203,7 +203,9 @@
             position: relative;
             overflow: hidden;
             display: flex;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100%;
             border: 1px solid #f0f0f0;
         }
@@ -219,6 +221,29 @@
             opacity: 0.05;
             border-radius: 50%;
             z-index: 0;
+        }
+
+        .word-cloud-intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .word-cloud-intro a {
+            color: #FDB834;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .word-cloud-intro a:hover {
+            color: #f0a820;
+            border-bottom-color: #f0a820;
         }
 
         .word-cloud {
@@ -317,7 +342,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav id="navbar">
+	<nav id="navbar">
         <a href="index.html" class="logo">Hien Bach</a>
         <ul class="nav-links">
    			 <li><a href="about.html" class="active">About Me</a></li>
@@ -328,6 +353,7 @@
         </ul>
     </nav>
 
+
     <!-- About Section -->
     <section class="about-section">
         <h2 class="section-title">About Me</h2>
@@ -335,10 +361,10 @@
         
         <div class="about-content">
             <div class="about-text">
-                <p>From Vietnam to London for my Master’s, then meeting a French man who made me stay, my life has been a journey across cultures. That blend of experiences makes diversity a part of who I am.</p>
+                <p>From Vietnam to London for my Master's, then meeting a French man who made me stay, my life has been a journey across cultures. That blend of experiences makes diversity a part of who I am.</p>
                 <p>My career has always been rooted in higher education and digital marketing. I began in a small edtech start-up, gaining hands-on experience and a deep understanding of digital systems. As the company grew into a larger organisation, my role evolved too, from being resourceful and technical to leading teams and thinking strategically.</p>
                 <p>I love helping ideas and people grow. Outside of work, you'll often find me reading, walking in nature, or enjoying good conversations (even though I'm not much of an extrovert).</p>
-                <p>This word cloud is <a href="https://www.linkedin.com/pulse/how-do-people-describe-me-5-words-activity-hien-bach/" target="_blank" rel="noopener">how my colleagues describe me</a>. I've also shared my <a href="https://partners.idp.com/articles/work-life/Hien-Bach-celebrating-a-decade-at-IDP-Connect" target="_blank" rel="noopener">learn, grow and inspire journey</a> from an international student to a leadership role, along with my thoughts on <a href="https://careers.idp.com/employee-stories/Hien-Bach" target="_blank" rel="noopener">diversity and inclusion</a>.</p>
+                <p>I've also shared my <a href="https://partners.idp.com/articles/work-life/Hien-Bach-celebrating-a-decade-at-IDP-Connect" target="_blank" rel="noopener">learn, grow and inspire journey</a> from an international student to a leadership role, along with my thoughts on <a href="https://careers.idp.com/employee-stories/Hien-Bach" target="_blank" rel="noopener">diversity and inclusion</a>.</p>
                 <p>If what I've shared resonates with you, I'd love to connect.</p>
                 <a href="https://www.linkedin.com/in/hien-bach-digital/" target="_blank" rel="noopener" class="btn btn-secondary">
                     <span>LinkedIn</span>
@@ -347,6 +373,7 @@
             </div>
 
             <div class="word-cloud-container">
+                <p class="word-cloud-intro">This word cloud is <a href="https://www.linkedin.com/pulse/how-do-people-describe-me-5-words-activity-hien-bach/" target="_blank" rel="noopener">how my colleagues describe me</a>.</p>
                 <div class="word-cloud" id="wordCloud"></div>
             </div>
         </div>
