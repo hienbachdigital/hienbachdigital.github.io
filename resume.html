@@ -87,17 +87,24 @@
 
         /* Main Content */
         .content-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 120px 5% 80px;
+            display: flex;
+            margin-top: 90px;
+            min-height: calc(100vh - 90px);
+            background: #fafafa;
+            padding: 2rem;
+            gap: 2rem;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 100%;
         }
 
         /* Two Column Grid */
         .resume-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 4rem;
+            gap: 2rem;
             align-items: start;
+            max-width: 1022px;
         }
 
         /* Left Column */
@@ -106,6 +113,7 @@
             padding: 3rem;
             border-radius: 12px;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
         }
 
         .cv-header {
@@ -282,7 +290,12 @@
         /* Right Column - Sidebar */
         .resume-sidebar {
             position: sticky;
-            top: 120px;
+            top: 110px;
+            height: fit-content;
+        }
+
+        .resume-sidebar::-webkit-scrollbar {
+            display: none;
         }
 
         .sidebar-section {
@@ -363,20 +376,30 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                padding: 2rem 3%;
+                margin-top: 80px;
+            }
+
             .resume-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                max-width: 100%;
+            }
+
+            .resume-main {
+                max-width: 100%;
             }
 
             .resume-sidebar {
                 position: static;
+                width: 100%;
             }
         }
 
         @media (max-width: 768px) {
             .content-wrapper {
-                padding: 100px 3% 60px;
+                padding: 1.5rem 4%;
             }
 
             .resume-main {
