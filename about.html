@@ -16,6 +16,7 @@
             font-family: 'Roboto', sans-serif;
             color: #333;
             overflow-x: hidden;
+            background: #fafafa;
         }
 
         /* Navigation */
@@ -84,47 +85,64 @@
             width: 100%;
         }
 
-        /* About Section */
-        .about-section {
-            padding: 150px 5% 80px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Main Content */
+        .content-wrapper {
+            display: flex;
+            margin-top: 90px;
+            min-height: calc(100vh - 90px);
+            background: #fafafa;
+            padding: 2rem;
+            gap: 2rem;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 100%;
         }
 
-        .section-title {
+        /* Two Column Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            align-items: start;
+            max-width: 1022px;
+        }
+
+        /* Left Column - About Content */
+        .about-main {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .about-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .about-title {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
             color: #1a1a1a;
-            margin-bottom: 1rem;
-            text-align: center;
+            margin-bottom: 0.5rem;
         }
 
         .section-underline {
-            width: 80px;
+            width: 60px;
             height: 3px;
             background: linear-gradient(90deg, #FDB834, #f0a820);
-            margin: 0 auto 3rem;
+            margin: 1rem 0 1.5rem 0;
             border-radius: 2px;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-            align-items: stretch;
-            padding-bottom: 2rem;
         }
 
         .about-text p {
             color: #666;
             line-height: 1.8;
             margin-bottom: 1.5rem;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .about-text p:last-of-type {
-            margin-bottom: 0;
+            margin-bottom: 2rem;
         }
 
         .about-text a:not(.btn) {
@@ -141,20 +159,22 @@
         }
 
         .btn {
-            padding: 1rem 2rem;
-            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.8rem;
+            border: 2px solid #333;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
-            margin-top: 1.5rem;
         }
 
         .btn::before {
@@ -172,14 +192,7 @@
             left: 100%;
         }
 
-        .btn-secondary {
-            background: #fff;
-            color: #333;
-            border: 2px solid #333;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .btn-secondary:hover {
+        .btn:hover {
             background: #333;
             color: #fff;
             transform: translateY(-3px);
@@ -195,22 +208,23 @@
             transform: translateX(3px);
         }
 
-        /* Word Cloud */
-        .word-cloud-container {
-            padding: 3rem;
-            background: #fafafa;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100%;
-            border: 1px solid #f0f0f0;
+        /* Right Column - Word Cloud Sidebar */
+        .word-cloud-sidebar {
+            position: sticky;
+            top: 110px;
+            height: fit-content;
         }
 
-        .word-cloud-container::before {
+        .word-cloud-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .word-cloud-card::before {
             content: '';
             position: absolute;
             top: -50%;
@@ -254,7 +268,7 @@
             justify-content: center;
             align-items: center;
             gap: 0.15rem 0.5rem;
-            padding: 1.5rem;
+            padding: 1rem;
             line-height: 1.1;
             width: 100%;
         }
@@ -278,14 +292,14 @@
         }
 
         /* Size variations */
-        .size-1 { font-size: 1.8rem; font-weight: 700; }
-        .size-2 { font-size: 1.5rem; font-weight: 700; }
-        .size-3 { font-size: 1.3rem; font-weight: 600; }
-        .size-4 { font-size: 1.1rem; font-weight: 600; }
-        .size-5 { font-size: 0.95rem; font-weight: 500; }
-        .size-6 { font-size: 0.85rem; font-weight: 500; }
-        .size-7 { font-size: 0.75rem; font-weight: 400; }
-        .size-8 { font-size: 0.7rem; font-weight: 400; }
+        .size-1 { font-size: 1.6rem; font-weight: 700; }
+        .size-2 { font-size: 1.4rem; font-weight: 700; }
+        .size-3 { font-size: 1.2rem; font-weight: 600; }
+        .size-4 { font-size: 1rem; font-weight: 600; }
+        .size-5 { font-size: 0.9rem; font-weight: 500; }
+        .size-6 { font-size: 0.8rem; font-weight: 500; }
+        .size-7 { font-size: 0.7rem; font-weight: 400; }
+        .size-8 { font-size: 0.65rem; font-weight: 400; }
 
         /* Color scheme */
         .color-1 { color: #333; }
@@ -311,22 +325,42 @@
             font-size: 0.9rem;
         }
 
-        @media (max-width: 768px) {
-            .about-section {
-                padding: 120px 5% 60px;
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                padding: 2rem 3%;
+                margin-top: 80px;
             }
 
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-content {
+            .about-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                max-width: 100%;
+            }
+
+            .word-cloud-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 1.5rem 4%;
+            }
+
+            .about-main {
+                padding: 2rem;
+            }
+
+            .about-title {
+                font-size: 2.2rem;
             }
 
             .nav-links {
                 gap: 1.5rem;
+            }
+
+            .word-cloud-card {
+                padding: 1.5rem;
             }
 
             .word {
@@ -342,42 +376,52 @@
 </head>
 <body>
     <!-- Navigation -->
-	<nav id="navbar">
+    <nav id="navbar">
         <a href="index.html" class="logo">Hien Bach</a>
         <ul class="nav-links">
-   			 <li><a href="about.html" class="active">About Me</a></li>
-             <li><a href="index.html">Home</a></li>
-   			 <li><a href="portfolio.html">Portfolio</a></li>
-   			 <li><a href="resume.html">Resume</a></li>
-
+            <li><a href="#" class="active">About me</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="resume.html">Resume</a></li>
         </ul>
     </nav>
 
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="about-grid">
+            <!-- Left Column - About Content -->
+            <div class="about-main">
+                <div class="about-header">
+                    <h1 class="about-title">About Me</h1>
+                    <div class="section-underline"></div>
+                </div>
 
-    <!-- About Section -->
-    <section class="about-section">
-        <h2 class="section-title">About Me</h2>
-        <div class="section-underline"></div>
-        
-        <div class="about-content">
-            <div class="about-text">
-                <p>From Vietnam to London for my Master's, then meeting a French man who made me stay, my life has been a journey across cultures. That blend of experiences makes diversity a part of who I am.</p>
-                <p>My career has always been rooted in higher education and digital marketing. I began in a small edtech start-up, gaining hands-on experience and a deep understanding of digital systems. As the company grew into a larger organisation, my role evolved too, from being resourceful and technical to leading teams and thinking strategically.</p>
-                <p>I love helping ideas and people grow. Outside of work, you'll often find me reading, walking in nature, or enjoying good conversations (even though I'm not much of an extrovert).</p>
-                <p>I've also shared my <a href="https://partners.idp.com/articles/work-life/Hien-Bach-celebrating-a-decade-at-IDP-Connect" target="_blank" rel="noopener">learn, grow and inspire journey</a> from an international student to a leadership role, along with my thoughts on <a href="https://careers.idp.com/employee-stories/Hien-Bach" target="_blank" rel="noopener">diversity and inclusion</a>.</p>
-                <p>If what I've shared resonates with you, I'd love to connect.</p>
-                <a href="https://www.linkedin.com/in/hien-bach-digital/" target="_blank" rel="noopener" class="btn btn-secondary">
-                    <span>LinkedIn</span>
-                    <span class="btn-icon">↗</span>
-                </a>
+                <div class="about-text">
+                    <p>From Vietnam to London for my Master's, then meeting a French man who made me stay, my life has been a journey across cultures. That blend of experiences makes diversity a part of who I am.</p>
+                    
+                    <p>My career has always been rooted in higher education and digital marketing. I began in a small edtech start-up, gaining hands-on experience and a deep understanding of digital systems. As the company grew into a larger organisation, my role evolved too, from being resourceful and technical to leading teams and thinking strategically.</p>
+                    
+                    <p>I love helping ideas and people grow. Outside of work, you'll often find me reading, walking in nature, or enjoying good conversations (even though I'm not much of an extrovert).</p>
+                    
+                    <p>I've also shared my <a href="https://partners.idp.com/articles/work-life/Hien-Bach-celebrating-a-decade-at-IDP-Connect" target="_blank" rel="noopener">learn, grow and inspire journey</a> from an international student to a leadership role, along with my thoughts on <a href="https://careers.idp.com/employee-stories/Hien-Bach" target="_blank" rel="noopener">diversity and inclusion</a>.</p>
+                    
+                    <p>If what I've shared resonates with you, I'd love to connect.</p>
+                    
+                    <a href="https://www.linkedin.com/in/hien-bach-digital/" target="_blank" rel="noopener" class="btn">
+                        <span>LinkedIn</span>
+                        <span class="btn-icon">↗</span>
+                    </a>
+                </div>
             </div>
 
-            <div class="word-cloud-container">
-                <p class="word-cloud-intro">This word cloud is <a href="https://www.linkedin.com/pulse/how-do-people-describe-me-5-words-activity-hien-bach/" target="_blank" rel="noopener">how my colleagues describe me</a>.</p>
-                <div class="word-cloud" id="wordCloud"></div>
+            <!-- Right Column - Word Cloud Sidebar -->
+            <div class="word-cloud-sidebar">
+                <div class="word-cloud-card">
+                    <p class="word-cloud-intro">This word cloud is <a href="https://www.linkedin.com/pulse/how-do-people-describe-me-5-words-activity-hien-bach/" target="_blank" rel="noopener">how my colleagues describe me</a>.</p>
+                    <div class="word-cloud" id="wordCloud"></div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <footer>
         <p class="copyright">Copyright Hien Bach 2025</p>
