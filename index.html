@@ -22,7 +22,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             position: fixed;
             top: 0;
             width: 100%;
@@ -34,6 +34,7 @@
 
         nav.scrolled {
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 5%;
         }
 
         .logo {
@@ -41,6 +42,7 @@
             font-weight: 500;
             color: #333;
             transition: transform 0.3s ease;
+            z-index: 1001;
         }
 
         .logo:hover {
@@ -80,6 +82,37 @@
         .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         .hero {
@@ -270,64 +303,6 @@
             background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
         }
 
-        .projects-section {
-            padding: 2rem 5%;
-            background: #fafafa;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-top: 1rem;
-        }
-
-        .project-card {
-            background: #fff;
-            border-radius: 10px;
-            padding: 3rem 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #FDB834;
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .project-card h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-        }
-
-        .project-underline {
-            width: 60px;
-            height: 3px;
-            background: #FDB834;
-            margin: 0 auto;
-        }
-
         .testimonial-section {
             padding: 4rem 5% 5rem 5%;
             background: #fff;
@@ -419,7 +394,6 @@
             color: #333;
             margin-bottom: 1.5rem;
             font-style: italic;
-            min-height: auto;
         }
 
         .testimonial-author {
@@ -513,33 +487,83 @@
         }
 
         @media (max-width: 1024px) {
-            .testimonial-card {
-                min-width: calc(50% - 2rem);
+            h1 {
+                font-size: 3rem;
+            }
+
+            .hero {
+                gap: 3rem;
+                padding: 100px 5% 60px 5%;
+            }
+
+            .carousel-wrapper {
+                padding: 0 70px;
             }
         }
 
         @media (max-width: 768px) {
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 140px;
-                padding-bottom: 60px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .image-container {
-                width: 350px;
-                height: 350px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .menu-toggle {
+                display: flex;
             }
 
             .nav-links {
-                gap: 1.5rem;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transition: left 0.4s ease;
+                box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+                padding-bottom: 40px;
+                gap: 2.5rem;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                line-height: 1.3;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .image-container {
+                width: 280px;
+                height: 280px;
             }
 
             .testimonial-section {
@@ -552,6 +576,7 @@
 
             .testimonial-card {
                 min-width: calc(100% - 2rem);
+                padding: 2rem 1.5rem;
             }
 
             .carousel-wrapper {
@@ -564,13 +589,21 @@
                 font-size: 1.2rem;
             }
 
+            .carousel-arrow.prev {
+                left: 5px;
+            }
+
+            .carousel-arrow.next {
+                right: 5px;
+            }
+
             .testimonial-text {
-                font-size: 1rem;
-                min-height: auto;
+                font-size: 0.95rem;
             }
 
             .testimonial-disclaimer {
                 font-size: 0.85rem;
+                padding: 0 1rem;
             }
 
             .cta-buttons {
@@ -582,19 +615,144 @@
                 font-size: 0.95rem;
             }
         }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 90px 4% 30px 4%;
+                gap: 2rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+                letter-spacing: 1.5px;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .image-container {
+                width: 240px;
+                height: 240px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.8rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .testimonial-section {
+                padding: 2.5rem 4% 3rem 4%;
+            }
+
+            .testimonial-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-underline {
+                width: 60px;
+            }
+
+            .testimonial-disclaimer {
+                font-size: 0.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .carousel-wrapper {
+                padding: 0 50px;
+            }
+
+            .testimonial-card {
+                padding: 1.8rem 1.2rem;
+            }
+
+            .quote-icon {
+                font-size: 2.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .testimonial-author {
+                font-size: 0.95rem;
+            }
+
+            .testimonial-role {
+                font-size: 0.85rem;
+            }
+
+            .testimonial-relationship {
+                font-size: 0.8rem;
+            }
+
+            .carousel-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+
+            .testimonial-dots {
+                gap: 0.6rem;
+                margin-top: 2rem;
+            }
+
+            .dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .dot.active {
+                width: 25px;
+            }
+
+            footer {
+                padding: 1.2rem 4%;
+            }
+
+            .copyright {
+                font-size: 0.85rem;
+            }
+        }
     </style>
 </head>
 <body>
-	<nav id="navbar">
+    <nav id="navbar">
         <div class="logo">Hien Bach</div>
+        <button class="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <ul class="nav-links">
-   			 <li><a href="portfolio.html">Portfolio</a></li>
-   			 <li><a href="resume.html">Resume</a></li>
-   			 <li><a href="about.html">About Me</a></li>
+            <li><a href="#about">About me</a></li>
+            <li><a href="#projects">Portfolio</a></li>
+            <li><a href="#contact">Resume</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
+    <section class="hero" id="about">
         <div class="hero-content">
             <h1>Hello, my name<br>is Hien Bach</h1>
             <div class="subtitle">Marketing Director | Mentor | Leader</div>
@@ -602,15 +760,15 @@
                 Calm under pressure, naturally curious, and always eager to learn. I love helping ideas and people grow. I'm not the loudest voice in the room, but the one quietly connecting the dots. I connect data, strategy, and people to drive meaningful growth.
             </p>
             <div class="cta-buttons">
-                <a href="resume.html" class="btn btn-primary">
+                <a href="#cv" class="btn btn-primary">
                     <span>Resume</span>
                     <span class="btn-icon">→</span>
                 </a>
-                <a href="portfolio.html" class="btn btn-primary">
+                <a href="#projects" class="btn btn-primary">
                     <span>Portfolio</span>
                     <span class="btn-icon">→</span>
                 </a>
-                <a href="https://linkedin.com/in/hien-bach-digital" target="_blank" rel="noopener" class="btn btn-secondary">
+                <a href="https://linkedin.com/in/hien-bach-digital" class="btn btn-secondary">
                     <span>LinkedIn</span>
                     <span class="btn-icon">↗</span>
                 </a>
@@ -626,7 +784,7 @@
 
     <div class="section-divider"></div>
   
-    <section class="testimonial-section">
+    <section class="testimonial-section" id="projects">
         <h2>Testimonials</h2>
         <div class="section-underline"></div>
         <p class="testimonial-disclaimer">
@@ -641,7 +799,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            From day one, she has demonstrated exceptional organisation and a genuine care for her team's growth and wellbeing. She consistently brings fresh, out-of-the-box ideas while grounding them in solid business insight, which has guided our team through countless GTM initiatives and product development projects with great success. Personally, I've learned so much from Hien, not only about marketing strategy and business growth, but also about what it means to lead with empathy and authenticity. I'm truly grateful to be part of her team and to be inspired by her vision and leadership.
+                            From day one, she has demonstrated exceptional organisation and a genuine care for her team's growth and wellbeing. She consistently brings fresh, out-of-the-box ideas while grounding them in solid business insight, which has guided our team through countless GTM initiatives and product development projects with great success.
                         </p>
                         <div class="testimonial-author">Bella Mazaya</div>
                         <div class="testimonial-role">Senior Digital Marketing Manager (Global), IDP Education Ltd</div>
@@ -651,7 +809,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            Hien is one of the most impressive marketing leaders I've come across. She combines strategic vision with sharp analytical skills, translating complex data into clear, actionable insights that drive meaningful business outcomes. Her deep expertise across digital marketing, product, and brand strategy is complemented by an exceptional ability to understand customer needs and market dynamics. Hien not only builds impactful strategies but also ensures execution with precision, creativity, and measurable results.
+                            Hien is one of the most impressive marketing leaders I've come across. She combines strategic vision with sharp analytical skills, translating complex data into clear, actionable insights that drive meaningful business outcomes. Her deep expertise across digital marketing, product, and brand strategy is complemented by an exceptional ability to understand customer needs.
                         </p>
                         <div class="testimonial-author">Nitin Pal Singh</div>
                         <div class="testimonial-role">Analytics Manager, IDP Connect</div>
@@ -671,7 +829,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            What stands out most about Hien is her holistic approach. Whether leading campaigns or refining systems, she is meticulous about quality and always ensures that the work delivers meaningful outcomes. She has a rare talent for improving processes in a way that drives both cost-effectiveness and growth. Hien is also an empowering leader. She nurtures multicultural teams with patience and vision, creating an environment where everyone feels proud of their contributions.
+                            What stands out most about Hien is her holistic approach. Whether leading campaigns or refining systems, she is meticulous about quality and always ensures that the work delivers meaningful outcomes. She has a rare talent for improving processes in a way that drives both cost-effectiveness and growth. Hien is also an empowering leader who nurtures multicultural teams with patience and vision.
                         </p>
                         <div class="testimonial-author">Iona Meng</div>
                         <div class="testimonial-role">Head of Performance Marketing, IDP Connect</div>
@@ -681,7 +839,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            Hien combines deep expertise in digital marketing, data, business analytics and product management with the rare ability to translate complexity into clear, actionable insights that drive real impact. What sets Hien apart is not just her exceptional strategic ability, but the way she nurtures and uplifts her team. She creates an environment where collaboration, creativity, care and growth are core values, and she invests deeply in developing individuals.
+                            Hien combines deep expertise in digital marketing, data, business analytics and product management with the rare ability to translate complexity into clear, actionable insights that drive real impact. What sets Hien apart is not just her exceptional strategic ability, but the way she nurtures and uplifts her team. She creates an environment where collaboration, creativity, care and growth are core values.
                         </p>
                         <div class="testimonial-author">James Smurthwaite</div>
                         <div class="testimonial-role">Content Director, IDP Education Ltd</div>
@@ -691,7 +849,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            I have worked with Hien as my manager for almost four years, and she has been one of the most valuable influences on my career. Hien is a genuine leader. She inspires, supports, and motivates her team while providing constructive feedback that fosters growth. Her ability to combine a strategic mindset, strong problem-solving skills, and empathy makes Hien stand out. She turns challenges into opportunities, making the experience of working with her both inspiring and rewarding.
+                            I have worked with Hien as my manager for almost four years, and she has been one of the most valuable influences on my career. Hien is a genuine leader. She inspires, supports, and motivates her team while providing constructive feedback that fosters growth. Her ability to combine a strategic mindset, strong problem-solving skills, and empathy makes Hien stand out.
                         </p>
                         <div class="testimonial-author">Nathalie Ramirez Flores</div>
                         <div class="testimonial-role">Digital Marketing Manager - Latin America, IDP Connect UK & Ireland</div>
@@ -711,7 +869,7 @@
                     <div class="testimonial-card">
                         <div class="quote-icon">"</div>
                         <p class="testimonial-text">
-                            Hien is bright, driven, hardworking, and reliable person to work with. She focuses on process and problem solving, therefore, whatever she does will deliver solid and accountable results. I was particularly impressed by Hien's ability to see the strengths of each person in her team. She supports each of them based on what they need so they can become so skilled and fantastic at what they are good at, to progress to their next chapter.
+                            Hien is bright, driven, hardworking, and reliable person to work with. She focuses on process and problem solving, therefore, whatever she does will deliver solid and accountable results. I was particularly impressed by Hien's ability to see the strengths of each person in her team. She supports each of them based on what they need so they can become skilled and fantastic at what they are good at.
                         </p>
                         <div class="testimonial-author">Nurmianti Nurmianti</div>
                         <div class="testimonial-role">Country Marketing Executive, Hotcourses Ltd</div>
@@ -731,12 +889,29 @@
         </div>
     </section>
 	
-	
     <footer id="contact">
         <p class="copyright">Copyright Hien Bach 2025</p>
     </footer>
 
     <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -758,129 +933,3 @@
                 }
             });
         });
-
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('click', () => {
-                console.log('Project card clicked');
-            });
-        });
-
-        const track = document.querySelector('.testimonial-track');
-        const carousel = document.querySelector('.testimonial-carousel');
-        const originalCards = Array.from(document.querySelectorAll('.testimonial-card'));
-        const prevBtn = document.querySelector('.carousel-arrow.prev');
-        const nextBtn = document.querySelector('.carousel-arrow.next');
-        const dots = document.querySelectorAll('.dot');
-        
-        originalCards.forEach(card => {
-            const clone = card.cloneNode(true);
-            track.appendChild(clone);
-        });
-        
-        const allCards = document.querySelectorAll('.testimonial-card');
-        let currentIndex = 0;
-        let cardsToShow = window.innerWidth > 768 ? 2 : 1;
-        const totalOriginalSlides = Math.ceil(originalCards.length / cardsToShow);
-        let isTransitioning = false;
-        let autoSlideInterval;
-        let isHovered = false;
-        
-        function updateCarousel(smooth = true) {
-            if (smooth) {
-                track.style.transition = 'transform 0.5s ease';
-            } else {
-                track.style.transition = 'none';
-            }
-            
-            cardsToShow = window.innerWidth > 768 ? 2 : 1;
-            const cardWidth = allCards[0].offsetWidth;
-            const gap = 32;
-            const offset = currentIndex * (cardWidth + gap) * cardsToShow;
-            track.style.transform = `translateX(-${offset}px)`;
-            
-            const dotIndex = currentIndex % totalOriginalSlides;
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === dotIndex);
-            });
-        }
-        
-        function handleTransitionEnd() {
-            if (currentIndex >= totalOriginalSlides) {
-                isTransitioning = true;
-                currentIndex = 0;
-                updateCarousel(false);
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 50);
-            } else if (currentIndex < 0) {
-                isTransitioning = true;
-                currentIndex = totalOriginalSlides - 1;
-                updateCarousel(false);
-                setTimeout(() => {
-                    isTransitioning = false;
-                }, 50);
-            }
-        }
-        
-        function startAutoSlide() {
-            stopAutoSlide();
-            autoSlideInterval = setInterval(() => {
-                if (!isTransitioning && !isHovered) {
-                    currentIndex++;
-                    updateCarousel();
-                }
-            }, 5000);
-        }
-        
-        function stopAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-            }
-        }
-        
-        track.addEventListener('transitionend', handleTransitionEnd);
-        
-        allCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                isHovered = true;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                isHovered = false;
-            });
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (isTransitioning) return;
-            currentIndex++;
-            updateCarousel();
-        });
-        
-        prevBtn.addEventListener('click', () => {
-            if (isTransitioning) return;
-            currentIndex--;
-            updateCarousel();
-        });
-        
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                if (isTransitioning) return;
-                currentIndex = index;
-                updateCarousel();
-            });
-        });
-        
-        startAutoSlide();
-        
-        window.addEventListener('resize', () => updateCarousel());
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
