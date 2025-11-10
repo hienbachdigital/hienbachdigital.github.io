@@ -544,7 +544,7 @@
             }
 
             .testimonial-section {
-                padding: 3rem 3% 4rem 3%;
+                padding: 3rem 5% 4rem 5%;
             }
 
             .testimonial-section h2 {
@@ -552,74 +552,26 @@
             }
 
             .testimonial-card {
-                min-width: 100%;
-                margin: 0;
-                padding: 2rem 1.5rem;
-                border-radius: 12px;
+                min-width: calc(100% - 2rem);
             }
 
             .carousel-wrapper {
-                padding: 0 50px;
+                padding: 0 60px;
             }
 
             .carousel-arrow {
-                width: 44px;
-                height: 44px;
-                font-size: 1.3rem;
-            }
-
-            .carousel-arrow.prev {
-                left: 0;
-            }
-
-            .carousel-arrow.next {
-                right: 0;
-            }
-
-            .quote-icon {
-                font-size: 2.5rem;
-                margin-bottom: 0.8rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
 
             .testimonial-text {
-                font-size: 1.05rem;
-                line-height: 1.8;
+                font-size: 1rem;
                 min-height: auto;
-                margin-bottom: 1.8rem;
-            }
-
-            .testimonial-author {
-                font-size: 1.05rem;
-                margin-bottom: 0.4rem;
-            }
-
-            .testimonial-role {
-                font-size: 0.95rem;
-                line-height: 1.4;
-                margin-bottom: 0.4rem;
-            }
-
-            .testimonial-relationship {
-                font-size: 0.9rem;
             }
 
             .testimonial-disclaimer {
-                font-size: 0.9rem;
-                padding: 0 1rem;
-            }
-
-            .testimonial-dots {
-                margin-top: 2.5rem;
-                gap: 0.7rem;
-            }
-
-            .dot {
-                width: 10px;
-                height: 10px;
-            }
-
-            .dot.active {
-                width: 26px;
+                font-size: 0.85rem;
             }
 
             .cta-buttons {
@@ -903,14 +855,12 @@
             if (isTransitioning) return;
             currentIndex++;
             updateCarousel();
-            startAutoSlide();
         });
         
         prevBtn.addEventListener('click', () => {
             if (isTransitioning) return;
             currentIndex--;
             updateCarousel();
-            startAutoSlide();
         });
         
         dots.forEach((dot, index) => {
@@ -918,16 +868,17 @@
                 if (isTransitioning) return;
                 currentIndex = index;
                 updateCarousel();
-                startAutoSlide();
             });
         });
         
         startAutoSlide();
         
-        window.addEventListener('resize', () => {
-            updateCarousel();
-            startAutoSlide();
-        });
+        window.addEventListener('resize', () => updateCarousel());
     </script>
 </body>
 </html>
+
+
+
+
+
