@@ -878,4 +878,56 @@
                     currentIndex++;
                     updateCarousel();
                 }
-            }, 5
+            }, 5000);
+        }
+        
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+        }
+        
+        track.addEventListener('transitionend', handleTransitionEnd);
+        
+        allCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                isHovered = true;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                isHovered = false;
+            });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            currentIndex++;
+            updateCarousel();
+            startAutoSlide();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            currentIndex--;
+            updateCarousel();
+            startAutoSlide();
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                if (isTransitioning) return;
+                currentIndex = index;
+                updateCarousel();
+                startAutoSlide();
+            });
+        });
+        
+        startAutoSlide();
+        
+        window.addEventListener('resize', () => {
+            updateCarousel();
+            startAutoSlide();
+        });
+    </script>
+</body>
+</html>
